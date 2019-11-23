@@ -20,7 +20,7 @@ services:
     ports:
       - "54321:5432"
     volumes:
-       - ~/pgdata-wmts:/pgdata
+       - ~/pgdata-wmts:/pgdata:delegated
     restart: always
   wms:
     image: sogis/wmts-wms:latest
@@ -34,3 +34,5 @@ services:
       - 8083:80
     depends_on:
       - db
+    restart: always
+
