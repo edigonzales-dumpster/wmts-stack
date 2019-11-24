@@ -42,3 +42,10 @@ services:
     depends_on:
       - wms
     restart: always
+  seeder:
+    image: sogis/wmts-cron-seeder:latest
+    ports:
+      - 8888:8080
+    depends_on:
+      - wms
+    restart: always
