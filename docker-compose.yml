@@ -26,13 +26,19 @@ services:
     image: sogis/wmts-wms:latest
     environment:
       QGIS_SERVER_PARALLEL_RENDERING: "true"
-      QGIS_SERVER_MAX_THREADS: 2
-      QGIS_FCGI_MAX_PROCESSES: 2
-      QGIS_FCGI_MIN_PROCESSES: 2
+      QGIS_SERVER_MAX_THREADS: 4
+      QGIS_FCGI_MAX_PROCESSES: 4
+      QGIS_FCGI_MIN_PROCESSES: 4
       QGIS_SERVER_LOG_LEVEL: 0
     ports:
       - 8083:80
     depends_on:
       - db
     restart: always
-
+  wmts:
+    image: sogis/wmts-service:latest
+    ports:
+      - 8281:8080
+    depends_on:
+      - wms
+    restart: always
