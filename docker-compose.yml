@@ -22,6 +22,25 @@ services:
     volumes:
        - ~/pgdata-wmts:/pgdata:delegated
     restart: always
+  avdpool:
+    image: sogis/wmts-avdpool:latest
+    environment:
+      TZ: Europe/Zurich
+      IDEMPOTENT_FILE_URL: /tmp/wmts_avdpool.txt
+      FTPUSR: xxxx
+      FTPPWD: yyyy
+      DBHOST: db
+      DBPORT: "5432"
+      DBDATABASE: wmts
+      DBSCHEMA: agi_dm01avso24
+      DBUSR: xxxx
+      DBPWD: yyyy
+    ports:
+      - "54321:5432"
+    volumes:
+       - /data/pgdata:/pgdata:delegated
+       - /tmp:/tmp
+    restart: always
   wms:
     image: sogis/wmts-wms:latest
     environment:
@@ -39,13 +58,19 @@ services:
     image: sogis/wmts-service:latest
     ports:
       - 8281:8080
+    volumes:
+      - /tmp/tiles:/tiles
     depends_on:
       - wms
     restart: always
   seeder:
     image: sogis/wmts-cron-seeder:latest
+    environment:
+      TZ: Europe/Zurich
     ports:
       - 8888:8080
+    volumes:
+      - /tmp/tiles:/tiles
     depends_on:
       - wms
     restart: always
