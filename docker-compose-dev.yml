@@ -1,0 +1,11 @@
+version: '3'
+services:
+  db:
+    volumes:
+       - ~/pgdata-wmts:/pgdata:delegated
+    restart: always
+  proxy:
+    image: sogis/wmts-proxy:latest
+    ports:
+      - "80:80"
+    restart: always
