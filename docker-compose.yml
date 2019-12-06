@@ -1,7 +1,7 @@
 version: '3'
 services:
   db:
-    hostname: wmts
+    hostname: primary-wmts
     image: sogis/wmts-db:latest
     environment:
       PG_DATABASE: wmts
@@ -53,15 +53,15 @@ services:
     depends_on:
       - db
     restart: always
-  # wmts:
-  #   image: sogis/wmts-wmts:latest
-  #   ports:
-  #     - 8282:8080
-  #   volumes:
-  #     - /tmp/tiles:/tiles
-  #   depends_on:
-  #     - wms
-  #   restart: always
+  wmts:
+    image: sogis/wmts-wmts:latest
+    ports:
+      - 8282:8080
+    volumes:
+      - /tiles:/tiles
+    depends_on:
+      - wms
+    restart: always
   # seeder:
   #   image: sogis/wmts-cron-seeder:latest
   #   environment:
@@ -81,3 +81,5 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    volumes:
+      - /certs/.caddy:/root/.caddy

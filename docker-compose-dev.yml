@@ -4,6 +4,10 @@ services:
     volumes:
        - ~/pgdata-wmts:/pgdata:delegated
     restart: always
+  wmts:
+    volumes:
+      - /tmp/tiles:/tiles
+    restart: always
   proxy:
     image: sogis/wmts-proxy:latest
     ports:
