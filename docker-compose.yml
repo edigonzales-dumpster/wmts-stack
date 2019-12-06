@@ -1,7 +1,7 @@
 version: '3'
 services:
   db:
-    hostname: primary
+    hostname: wmts
     image: sogis/wmts-db:latest
     environment:
       PG_DATABASE: wmts
