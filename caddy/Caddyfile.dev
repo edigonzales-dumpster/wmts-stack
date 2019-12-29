@@ -1,0 +1,20 @@
+http://localhost {
+    tls stefan.ziegler.de@gmail.com 
+
+    proxy /wms wms:80/wms {
+        transparent
+        without /wms
+    }
+
+    proxy /avdpool avdpool:8080 {
+        transparent
+        without /avdpool
+    }
+
+    proxy / wmts:8080 {
+        transparent
+    }
+
+    log stdout
+    errors stdout
+}

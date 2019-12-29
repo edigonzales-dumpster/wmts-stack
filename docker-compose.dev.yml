@@ -1,6 +1,7 @@
 version: '3'
 services:
   db:
+    hostname: primary
     volumes:
        - ~/pgdata-wmts:/pgdata:delegated
     restart: always
@@ -12,4 +13,8 @@ services:
     image: sogis/wmts-proxy:latest
     ports:
       - "80:80"
+      - "443:443"
+    volumes:
+      - "./caddy/Caddyfile.dev:/etc/Caddyfile"
+      - ".:/root/.caddy" # Dummy, since volumes get merged (and the /certs cannot be mounted).
     restart: always
