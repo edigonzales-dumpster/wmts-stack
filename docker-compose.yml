@@ -22,24 +22,33 @@ services:
     volumes:
        - /pgdata:/pgdata
     restart: always
-  # avdpool:
-  #   image: sogis/wmts-avdpool:latest
-  #   environment:
-  #     TZ: Europe/Zurich
-  #     IDEMPOTENT_FILE_URL: /tmp/wmts_avdpool.txt
-  #     FTPUSRINFOGRIPS: ${ftpUserInfogrips}
-  #     FTPPWDINFOGRIPS: ${ftpPwdInfogrips}
-  #     DBHOST: db
-  #     DBPORT: "5432"
-  #     DBDATABASE: wmts
-  #     DBSCHEMA: agi_dm01avso24
-  #     DBUSR: gretl
-  #     DBPWD: gretl
-  #   ports:
-  #     - "8181:8080"
-  #   volumes:
-  #      - /tmp:/tmp
-  #   restart: always
+  avdpool:
+    image: sogis/wmts-avdpool:latest
+    environment:
+      TZ: Europe/Zurich
+      IDEMPOTENT_FILE_URL: /tmp/wmts_avdpool.txt
+      FTPUSRINFOGRIPS: ${ftpUserInfogrips}
+      FTPPWDINFOGRIPS: ${ftpPwdInfogrips}
+      #DOWNLOAD_INITIAL_DELAY: ${DOWNLOAD_INITIAL_DELAY}
+      #IMPORT_INITIAL_DELAY: ${IMPORT_INITIAL_DELAY}
+      DBHOST: db
+      DBPORT: "5432"
+      DBDATABASE: wmts
+      DBSCHEMA: agi_dm01avso24
+      DBUSR: gretl
+      DBPWD: gretl
+    ports:
+      - "8181:8080"
+    depends_on:
+      - db
+    volumes:
+       - /tmp:/tmp
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: '1.5'
+          memory: 1024M
   wms:
     image: sogis/wmts-wms:latest
     environment:
