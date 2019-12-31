@@ -73,17 +73,17 @@ services:
     depends_on:
       - wms
     restart: always
-  # seeder:
-  #   image: sogis/wmts-cron-seeder:latest
-  #   environment:
-  #     TZ: Europe/Zurich
-  #   ports:
-  #     - 8484:8080
-  #   volumes:
-  #     - /tmp/tiles:/tiles
-  #   depends_on:
-  #     - wms
-  #   restart: always
+  seeder:
+    image: sogis/wmts-cron-seeder:latest
+    environment:
+      TZ: Europe/Zurich
+    ports:
+      - 8484:8080
+    volumes:
+      - /tiles:/tiles
+    depends_on:
+      - wms
+    restart: always
   proxy:
     image: sogis/wmts-proxy:latest
     environment:
