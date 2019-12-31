@@ -64,6 +64,8 @@ services:
     restart: always
   wmts:
     image: sogis/wmts-wmts:latest
+    environment:
+      TZ: Europe/Zurich
     ports:
       - 8282:8080
     volumes:
