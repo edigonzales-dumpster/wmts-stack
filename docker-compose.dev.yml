@@ -9,12 +9,16 @@ services:
     volumes:
       - /tmp/tiles:/tiles
     restart: always
-  proxy:
-    image: sogis/wmts-proxy:latest
-    ports:
-      - "80:80"
-      - "443:443"
+  seeder:
     volumes:
-      - "./caddy/Caddyfile.dev:/etc/Caddyfile"
-      - ".:/root/.caddy" # Dummy, since volumes get merged (and the /certs cannot be mounted).
+      - /tmp/tiles:/tiles
     restart: always
+  # proxy:
+  #   image: sogis/wmts-proxy:latest
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   volumes:
+  #     - "./caddy/Caddyfile.dev:/etc/Caddyfile"
+  #     - ".:/root/.caddy" # Dummy, since volumes get merged (and the /certs cannot be mounted).
+  #   restart: always

@@ -22,33 +22,33 @@ services:
     volumes:
        - /pgdata:/pgdata
     restart: always
-  avdpool:
-    image: sogis/wmts-avdpool:latest
-    environment:
-      TZ: Europe/Zurich
-      IDEMPOTENT_FILE_URL: /tmp/wmts_avdpool.txt
-      FTPUSRINFOGRIPS: ${ftpUserInfogrips}
-      FTPPWDINFOGRIPS: ${ftpPwdInfogrips}
-      #DOWNLOAD_INITIAL_DELAY: ${DOWNLOAD_INITIAL_DELAY}
-      #IMPORT_INITIAL_DELAY: ${IMPORT_INITIAL_DELAY}
-      DBHOST: db
-      DBPORT: "5432"
-      DBDATABASE: wmts
-      DBSCHEMA: agi_dm01avso24
-      DBUSR: gretl
-      DBPWD: gretl
-    ports:
-      - "8181:8080"
-    depends_on:
-      - db
-    volumes:
-       - /tmp:/tmp
-    restart: always
-    deploy:
-      resources:
-        limits:
-          cpus: '1.5'
-          memory: 1024M
+  # avdpool:
+  #   image: sogis/wmts-avdpool:latest
+  #   environment:
+  #     TZ: Europe/Zurich
+  #     IDEMPOTENT_FILE_URL: /tmp/wmts_avdpool.txt
+  #     FTPUSRINFOGRIPS: ${ftpUserInfogrips}
+  #     FTPPWDINFOGRIPS: ${ftpPwdInfogrips}
+  #     #DOWNLOAD_INITIAL_DELAY: ${DOWNLOAD_INITIAL_DELAY}
+  #     #IMPORT_INITIAL_DELAY: ${IMPORT_INITIAL_DELAY}
+  #     DBHOST: db
+  #     DBPORT: "5432"
+  #     DBDATABASE: wmts
+  #     DBSCHEMA: agi_dm01avso24
+  #     DBUSR: gretl
+  #     DBPWD: gretl
+  #   ports:
+  #     - "8181:8080"
+  #   depends_on:
+  #     - db
+  #   volumes:
+  #      - /tmp:/tmp
+  #   restart: always
+  #   deploy:
+  #     resources:
+  #       limits:
+  #         cpus: '1.5'
+  #         memory: 1024M
   wms:
     image: sogis/wmts-wms:latest
     environment:
@@ -84,14 +84,14 @@ services:
     depends_on:
       - wms
     restart: always
-  proxy:
-    image: sogis/wmts-proxy:latest
-    environment:
-      SUBDOMAIN: ${SUBDOMAIN}
-      ACME_AGREE: "true"
-    restart: always
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - /certs/.caddy:/root/.caddy
+  # proxy:
+  #   image: sogis/wmts-proxy:latest
+  #   environment:
+  #     SUBDOMAIN: ${SUBDOMAIN}
+  #     ACME_AGREE: "true"
+  #   restart: always
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   volumes:
+  #     - /certs/.caddy:/root/.caddy
