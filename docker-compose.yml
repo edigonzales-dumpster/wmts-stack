@@ -88,10 +88,10 @@ services:
   #   image: sogis/wmts-proxy:latest
   #   environment:
   #     SUBDOMAIN: ${SUBDOMAIN}
-  #     ACME_AGREE: "true"
+  #     #ACME_AGREE: "true"
   #   restart: always
   #   ports:
   #     - "80:80"
-  #     - "443:443"
+  #     #- "443:443"
   #   volumes:
   #     - /certs/.caddy:/root/.caddy
